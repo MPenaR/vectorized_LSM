@@ -17,7 +17,6 @@ def h0_1(x: float_array) -> complex_array:
 
 def monofrequency_near_field_LSM(
     A: complex_array,
-    xy_E: float_array,
     xy_R: float_array,
     xy: float_array,
     k: float,
@@ -32,8 +31,6 @@ def monofrequency_near_field_LSM(
     - A: scattered field matrix A where the a_ij element corresponds to the
     measure at antenna i when the incident field is radiated at antena j.
     The number of emitting and receiving directions do not need to  be equal.
-    - xy_E : N_E x 2 array containing the x and y coordinates of the position
-    vector of the emitting antenas.
     - xy_R : N_R x 2 array containing the x and y coordinates of the position
     vector of the receiving antenas.
     - xy : N x 2 array containing the x and y coordinates of the sampling
@@ -56,4 +53,4 @@ def monofrequency_near_field_LSM(
     u, s, _ = svd(a=A, full_matrices=False)
     b = h0_1(k * cdist(xy, xy_R))
     g = np.sum((s / (s**2 + alpha)) ** 2 * np.dot(b, np.conj(u)) ** 2, axis=1)
-    return g
+    return 1 / g
