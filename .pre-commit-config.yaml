@@ -14,4 +14,13 @@ repos:
     rev: v1.1.1
     hooks:
       - id: mypy
-
+  
+  - repo: local
+    hooks:
+    - id: pytest
+      name: pytest
+      entry: ./venv/bin/pytest src
+      language: system
+      types: [python]
+      pass_filenames: false
+      always_run: true
