@@ -93,10 +93,6 @@ def monofrequency_far_field_LSM(
 
     u, s, _ = svd(a=A, full_matrices=False)
     x = np.stack([np.cos(theta_R), np.sin(theta_R)], axis=0)
-    b = (
-        np.exp(1j * np.pi / 4)
-        / np.sqrt(8 * np.pi * k)
-        * np.exp(-1j * k * np.dot(xy, x))
-    )
-    g = np.sum((s / (s**2 + alpha)) ** 2 * np.dot(b, np.conj(u)) ** 2, axis=1)
+    b = np.exp(1j * np.pi / 4) / np.sqrt(8 * np.pi * k) * np.exp(-1j * k * np.dot(xy, x))
+    g = np.sum((s / (s**2 + alpha)) ** 2 * np.abs(np.dot(b, np.conj(u))) ** 2, axis=1)
     return 1 / g
